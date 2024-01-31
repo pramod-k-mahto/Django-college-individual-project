@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <link rel="stylesheet" href="{% static 'blog.css' %}">
+    
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url "home" %}">Home</a></li>
+            <li><a href="{% url "about" %}">About</a></li>
+            <li><a href="{% url "contact" %}">Contact</a></li>
+            <li><a href="{% url "createblog" %}">Create Blog</a></li>
+            <li><a href="{% url "blog" %}">Blog</a></li>
+        </ul>
+    </nav>
+
+    <h1>Latest Blog Posts</h1>
+    {% if data%}
+    {%for item in data%}
+    <div class="blog-post">
+        <h2>{{item.title}}</h2>
+        <p>
+            <a href="{% url 'description' item.id  %}">Read more...</a>
+        </p>
+    </div>
+    {%endfor%}
+    
+    {% else %}
+    <h1>blog Not Found</h1>
+    {%endif%}
+    
+</body>
+</html>

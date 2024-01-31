@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>createblog</title>
+    <link rel="stylesheet" href="{% static 'createblog.css' %}">
+</head>
+
+
+
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
+            <li><a href="{% url 'createblog' %}">Createblog</a></li>
+            <li><a href="{% url 'blog' %}">Blog</a></li>
+        </ul>
+    </nav>
+    <h1>Create Blog</h1>
+
+    <div>
+        <form action="#" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button>Add New Blog</button>
+        </form>
+    </div>
+
+    <div id='blog_data'>
+        {% if data %}
+        <h1>Blog Data</h1>
+        <table border='1'>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Author</th>
+                <th>Action</th>
+
+
+
+            </tr>
+            {% for item in data %}
+            <tr>
+                <td>{{ item.title }}</td>
+                <td>{{ item.description }}</td>
+                <td>{{ item.author }}</td>
+
+                <td>
+                   <span id="action">
+                     <a href="{% url 'delete' item.id  %}">Delete</a>
+                    <a href="{% url 'editblog' item.id  %}">Edit</a>
+                </span>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <h1>Data not found</h1>
+        {% endif %}
+    </div>
+</body>
+
+</html>
